@@ -1,0 +1,124 @@
+Bank system 
+ 
+#include <iostream> using namespace std; 
+ 
+class BankAccount 
+{ 
+private:     string name;     double balance; 
+ 
+    string history[100];     int transactionCount; 
+ 
+public: 
+    BankAccount() 
+    { 
+        balance = 0;         transactionCount = 0; 
+    } 
+ 
+    void createAccount() 
+    { 
+        cout << "Enter Account Holder Name: ";         cin >> name; 
+ 
+        cout << "Enter Initial Balance: ";         cin >> balance;         history[transactionCount++] =             "Account Created with Balance: " +             to_string((int)balance); 
+    } 
+ 
+    void deposit() 
+    { 
+        double amount; 
+ 
+        cout << "Enter Amount to Deposit: ";         cin >> amount; 
+ 
+        balance += amount; 
+ 
+        history[transactionCount++] = 
+            "Deposited: " + to_string((int)amount); 
+ 
+        cout << "Amount Deposited Successfully!\n"; 
+    } 
+ 
+    void withdraw() 
+    { 
+        double amount; 
+ 
+        cout << "Enter Amount to Withdraw: ";         cin >> amount; 
+ 
+        if(amount > balance) 
+        { 
+            cout << "Insufficient Balance!\n"; 
+        } 
+        else 
+        { 
+            balance -= amount; 
+ 
+            history[transactionCount++] = 
+                "Withdrawn: " + to_string((int)amount); 
+ 
+            cout << "Withdrawal Successful!\n"; 
+        } 
+    } 
+ 
+    void displayAccount() 
+    { 
+        cout << "\n----- Account Details -----\n";         cout << "Account Holder: " << name << endl;         cout << "Current Balance: " << balance << endl; 
+    } 
+ 
+    void showHistory() 
+    { 
+        cout << "\n----- Transaction History -----\n"; 
+ 
+        if(transactionCount == 0) 
+        { 
+            cout << "No Transactions Found.\n"; 
+            return; 
+        } 
+ 
+        for(int i = 0; i < transactionCount; i++) 
+        { 
+            cout << i + 1 << ". " 
+                 << history[i] << endl; 
+        } 
+    } 
+}; 
+ 
+int main() 
+{ 
+    BankAccount account; 
+ 
+    int choice; 
+ 
+    account.createAccount(); 
+ 
+    do 
+    { 
+        cout << "\n=================================\n";         cout << "        BANKING SYSTEM\n"; 
+        cout << "=================================\n"; 
+        cout << "1. Deposit\n";         cout << "2. Withdraw\n";         cout << "3. Display Account\n";         cout << "4. Transaction History\n";         cout << "5. Exit\n";         cout << "Enter Choice: "; 
+ 
+        cin >> choice; 
+ 
+        switch(choice) 
+        { 
+        case 1:             account.deposit(); 
+            break; 
+ 
+        case 2: 
+            account.withdraw();             break; 
+ 
+        case 3: 
+            account.displayAccount(); 
+            break; 
+ 
+        case 4: 
+            account.showHistory(); 
+            break; 
+ 
+        case 5: 
+            cout << "Thank You!\n"; 
+            break; 
+ 
+        default:             cout << "Invalid Choice!\n"; 
+        } 
+ 
+    } while(choice != 5); 
+ 
+    return 0; 
+} 
